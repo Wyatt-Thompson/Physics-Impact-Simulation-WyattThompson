@@ -1,0 +1,59 @@
+# Impact Simulation Project
+
+* Author: Wyatt Thompson
+* Class: Physics Period 5
+* Semester: Fall 2025
+
+## How Data Is Measured
+
+The data of this experiment is measured in the SimulationPanel class within the update() method that is executed every frame (60 times per second). There is a JPanel called DataPanel at the left side of the screen where JLabels are constantly updated with the values. One both velocity x and y are zero, the simulation ends and the final impulse and average force values are displayed to the user.
+
+Before starting the simulation, the user can set the values for mass, initial velocity, initial direction and material type. Each material type reacts differently to collisions with the ground and the wall. For example, the "metal" material maintains most of its energy upon collision, while "wood" maintains less.
+
+## Equations
+
+* Mass: Set by user
+
+* Initial Velocity: Set by user
+
+* Velocity: mainPanel.velocity = Math.round(Math.sqrt(Math.pow(mainPanel.getVX(), 2) + Math.pow(mainPanel.getVY(), 2)) * 100.0) / 100.0;
+
+* VX: Changes upon floor/wall collision.
+    (Friction): mainPanel.vx *= bounceMultipliers[mainPanel.selectedMaterial];
+
+* VY:
+    (Gravity): mainPanel.vy += (GRAVITY * 8 / FPS);
+    (Friction): mainPanel.vy *= bounceMultipliers[mainPanel.selectedMaterial];
+
+* Direction: mainPanel.direction = Math.round(Math.atan2(mainPanel.getVY(), mainPanel.getVX()) * 100.0) / 100.0;
+
+* Density: Set by user
+
+* Impulse: mainPanel.impulse = Math.round((mainPanel.getMass() * (mainPanel.getVelocity() - mainPanel.previousVelocity)) * 100.0) / 100.0;
+
+* Average Force:
+
+    if (this.timeElapsed > 0)
+    {
+        mainPanel.averageForce = Math.abs(Math.round((mainPanel.getImpulse() / this.timeElapsed) * 100.0) / 100.0);
+    }
+    else
+    {
+        mainPanel.averageForce = 0;
+    }
+
+## Tutorial
+
+1. To compile the code, enter the following command in the terminal:
+
+    $ javac *.java
+
+2. To run the simulation class, enter the following command in the terminal:
+
+    $ java ImpactSimulation
+
+3. Use the sliders found at the top of the screen to set the initial values.
+
+4. Press the "START" button to start the simulation.
+
+5. Once the simulation ends, press "Yes" to run it again or "No" to close the program.
